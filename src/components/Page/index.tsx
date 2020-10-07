@@ -17,7 +17,7 @@ const Page: React.FC = () => {
             // 'Model Four',
             // 'Model Five',
             // 'Model Six',
-            'Model Seven',
+            // 'Model Seven',
           ].map((modelName) => (
             <ModelsSection
               key={modelName}
