@@ -25,12 +25,16 @@ const ModelOverlay: React.FC<Props> = ({ model, children }) => {
   );
 
   useLayoutEffect(() => {
-    function onResize() {}
+    function onResize() {
+      window.requestAnimationFrame(() => setDimensions(getSectionDimensions()));
+    }
 
     window.addEventListener('resize', onResize);
 
     return () => window.removeEventListener('resize', onResize);
   }, []);
+
+  const { scrollY } = useWrapperScroll();
 
   return <Container>{children}</Container>;
 };
