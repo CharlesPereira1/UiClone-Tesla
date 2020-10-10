@@ -3,6 +3,7 @@ import useWrapperScroll from '../useWhapperScroll';
 
 import { Container } from './styles';
 import { CarModel } from '../ModelsContext';
+import { useTransform } from 'framer-motion';
 
 interface Props {
   model: CarModel;
@@ -34,9 +35,14 @@ const ModelOverlay: React.FC<Props> = ({ model, children }) => {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const { scrollY } = useWrapperScroll();
+  const sectonScrollProgress = useTransform(
+    scrollY,
+    (y) => (y - dimensions.offsetTop) / dimensions.offsetHeight,
+  );
 
-  return <Container>{children}</Container>;
+  const opacity = useTransform(sectonScrollProgress, [-0.42, -0.05], [0, 1]);
+
+  return <Container style={{ opacity }}>{children}</Container>;
 };
 
 export default ModelOverlay;
